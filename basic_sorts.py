@@ -54,9 +54,9 @@ def quick_sort(arr, low, high):
 
 def merge_sort(arr, low, high):
     if low < high:
-        mid = len(arr) // 2
-        arr1 = merge_sort(arr[low,mid], low, mid)
-        arr2 = merge_sort(arr[low,mid], mid + 1, high)
+        mid = (high + low) // 2
+        arr1 = merge_sort(arr, low, mid)
+        arr2 = merge_sort(arr, mid + 1, high)
         final = []
         i, j = 0, 0
         while i < len(arr1) and j < len(arr2):
@@ -67,21 +67,20 @@ def merge_sort(arr, low, high):
                 final.append(arr2[j])
                 j += 1
         if i < len(arr1):
-            final.append(arr1[i:])
+            final += arr1[i:]
         if j < len(arr2):
-            final.append(arr2[j:])
+            final += arr2[j:]
         return final
-    return arr
+    else:
+        return arr[low:high + 1]
 
-
-import time
 
 arr = [10, 11, 1, 2, 99, 14, 10, 5]
-st = time.perf_counter()
+
 # bubble_sort(arr)
 # selection_sort(arr)
 # insertion_sort(arr)
 # quick_sort(arr, 0, len(arr) - 1)
-merge_sort(arr, 0, len(arr))
-end = time.perf_counter()
-print(arr, end - st)
+new_arr = merge_sort(arr, 0, len(arr) - 1)
+
+print(new_arr)
